@@ -20,6 +20,8 @@ Deprecated and removed features, and other changes affecting compatibility:
   subdirectories on the library search path or the subdirectory that
   corresponds to the AT_PLATFORM system name, or employs the legacy AT_HWCAP
   search mechanism, which was deprecated in version 2.33.
+* Building on LoongArch requires at a minimum binutils 2.41 for vector
+  instructions.
 
 Security related changes:
 
