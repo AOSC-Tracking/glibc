@@ -199,8 +199,8 @@ __ctz8_inline (uint8_t __x)
   return __x == 0 ? 8U : (unsigned int) __builtin_ctz (__x);
 }
 
-# define stdc_trailing_zeros_uc(x) (__ctz8_inline (x))
-# define stdc_trailing_zeros_us(x) (__ctz16_inline (x))
+# define stdc_trailing_zeros_uc(x) (__ctz8_inline (__pacify_uint8 (x)))
+# define stdc_trailing_zeros_us(x) (__ctz16_inline (__pacify_uint16 (x)))
 # define stdc_trailing_zeros_ui(x) (__ctz32_inline (x))
 # if __WORDSIZE == 64
 #  define stdc_trailing_zeros_ul(x) (__ctz64_inline (x))
@@ -303,8 +303,8 @@ __flz8_inline (uint8_t __x)
   return __x == (uint8_t) -1 ? 0 : 1 + __clo8_inline (__x);
 }
 
-# define stdc_first_leading_zero_uc(x) (__flz8_inline (x))
-# define stdc_first_leading_zero_us(x) (__flz16_inline (x))
+# define stdc_first_leading_zero_uc(x) (__flz8_inline (__pacify_uint8 (x)))
+# define stdc_first_leading_zero_us(x) (__flz16_inline (__pacify_uint16 (x)))
 # define stdc_first_leading_zero_ui(x) (__flz32_inline (x))
 # if __WORDSIZE == 64
 #  define stdc_first_leading_zero_ul(x) (__flz64_inline (x))
@@ -357,8 +357,8 @@ __flo8_inline (uint8_t __x)
   return __x == 0 ? 0 : 1 + __clz8_inline (__x);
 }
 
-# define stdc_first_leading_one_uc(x) (__flo8_inline (x))
-# define stdc_first_leading_one_us(x) (__flo16_inline (x))
+# define stdc_first_leading_one_uc(x) (__flo8_inline (__pacify_uint8 (x)))
+# define stdc_first_leading_one_us(x) (__flo16_inline (__pacify_uint16 (x)))
 # define stdc_first_leading_one_ui(x) (__flo32_inline (x))
 # if __WORDSIZE == 64
 #  define stdc_first_leading_one_ul(x) (__flo64_inline (x))
@@ -411,8 +411,8 @@ __ftz8_inline (uint8_t __x)
   return __x == (uint8_t) -1 ? 0 : 1 + __cto8_inline (__x);
 }
 
-# define stdc_first_trailing_zero_uc(x) (__ftz8_inline (x))
-# define stdc_first_trailing_zero_us(x) (__ftz16_inline (x))
+# define stdc_first_trailing_zero_uc(x) (__ftz8_inline (__pacify_uint8 (x)))
+# define stdc_first_trailing_zero_us(x) (__ftz16_inline (__pacify_uint16 (x)))
 # define stdc_first_trailing_zero_ui(x) (__ftz32_inline (x))
 # if __WORDSIZE == 64
 #  define stdc_first_trailing_zero_ul(x) (__ftz64_inline (x))
@@ -465,8 +465,8 @@ __fto8_inline (uint8_t __x)
   return __x == 0 ? 0 : 1 + __ctz8_inline (__x);
 }
 
-# define stdc_first_trailing_one_uc(x) (__fto8_inline (x))
-# define stdc_first_trailing_one_us(x) (__fto16_inline (x))
+# define stdc_first_trailing_one_uc(x) (__fto8_inline (__pacify_uint8 (x)))
+# define stdc_first_trailing_one_us(x) (__fto16_inline (__pacify_uint16 (x)))
 # define stdc_first_trailing_one_ui(x) (__fto32_inline (x))
 # if __WORDSIZE == 64
 #  define stdc_first_trailing_one_ul(x) (__fto64_inline (x))
