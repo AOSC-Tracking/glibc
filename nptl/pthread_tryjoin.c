@@ -40,8 +40,8 @@ __pthread_tryjoin_np (pthread_t threadid, void **thread_return)
 	 ? EBUSY
 	 : __pthread_clockjoin_ex (threadid, thread_return, 0, NULL, false);
 }
-versioned_symbol (libc, __pthread_tryjoin_np, pthread_tryjoin_np, GLIBC_2_34);
+versioned_symbol (libpthread, __pthread_tryjoin_np, pthread_tryjoin_np, GLIBC_2_34);
 
 #if OTHER_SHLIB_COMPAT (libpthread, GLIBC_2_3_3, GLIBC_2_34)
-compat_symbol (libc, __pthread_tryjoin_np, pthread_tryjoin_np, GLIBC_2_3_3);
+compat_symbol (libpthread, __pthread_tryjoin_np, pthread_tryjoin_np, GLIBC_2_3_3);
 #endif
