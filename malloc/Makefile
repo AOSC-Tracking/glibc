@@ -28,6 +28,8 @@ tests := \
   mallocbug \
   tst-aligned-alloc \
   tst-aligned-alloc-random \
+  tst-aligned-alloc-random-thread \
+  tst-aligned-alloc-random-thread-cross \
   tst-alloc_buffer \
   tst-calloc \
   tst-free-errno \
@@ -151,6 +153,8 @@ ifeq ($(have-GLIBC_2.23)$(build-shared),yesyes)
 # the tests expect specific internal behavior that is changed due to linking to
 # libmcheck.a.
 tests-exclude-mcheck = \
+  tst-aligned-alloc-random-thread \
+  tst-aligned-alloc-random-thread-cross \
   tst-compathooks-off \
   tst-compathooks-on \
   tst-malloc-backtrace \
@@ -261,10 +265,6 @@ else
 address-width=18
 endif
 
-# Unless we get a test for the availability of libgd which also works
-# for cross-compiling we disable the memusagestat generation in this
-# situation.
-ifneq ($(cross-compiling),yes)
 # If the gd library is available we build the `memusagestat' program.
 ifneq ($(LIBGD),no)
 others: $(objpfx)memusage
@@ -279,7 +279,6 @@ extra-objs += memusagestat.o
 # kernel interface headers, not something like libgd.  So the simplest thing
 # is to presume that the standard system headers will be ok for this file.
 $(objpfx)memusagestat.o: sysincludes = # nothing
-endif
 endif
 
 # Another goal which can be used to override the configure decision.
@@ -415,7 +414,19 @@ $(objpfx)tst-mallocstate: $(objpfx)libc_malloc_debug.so
 $(objpfx)tst-mallocstate-malloc-check: $(objpfx)libc_malloc_debug.so
 
 $(objpfx)tst-aligned-alloc-random.out: $(objpfx)tst-aligned_alloc-lib.so
+$(objpfx)tst-aligned-alloc-random-thread: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-malloc-check: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-malloc-hugetlb1: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-malloc-hugetlb2: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread.out: $(objpfx)tst-aligned_alloc-lib.so
+$(objpfx)tst-aligned-alloc-random-thread-cross: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-cross-malloc-check: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-cross-malloc-hugetlb1: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-cross-malloc-hugetlb2: $(shared-thread-library)
+$(objpfx)tst-aligned-alloc-random-thread-cross.out: $(objpfx)tst-aligned_alloc-lib.so
 $(objpfx)tst-malloc-random.out: $(objpfx)tst-aligned_alloc-lib.so
 
 tst-aligned-alloc-random-ENV = LD_PRELOAD=$(objpfx)tst-aligned_alloc-lib.so
+tst-aligned-alloc-random-thread-ENV = LD_PRELOAD=$(objpfx)tst-aligned_alloc-lib.so
+tst-aligned-alloc-random-thread-cross-ENV = LD_PRELOAD=$(objpfx)tst-aligned_alloc-lib.so
 tst-malloc-random-ENV = LD_PRELOAD=$(objpfx)tst-aligned_alloc-lib.so

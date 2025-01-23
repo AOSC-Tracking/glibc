@@ -1655,6 +1655,25 @@ open_verify (const char *name, int fd,
 	      __set_errno (ENOENT);
 	      return -1;
 	    }
+#ifdef __arm__
+          else if (!VALID_FLOAT_ABI (ehdr->e_flags))
+	    {
+	      /* This is not a fatal error.  On architectures where
+		 soft-float and hard-float binaries can be run this
+		 might happen.  */
+	      __close_nocancel (fd);
+	      __set_errno (ENOENT);
+	      return -1;
+	    }
+#endif
+	  else if (! __builtin_expect (elf_machine_matches_host (ehdr), 1))
+	    {
+	      /* Another non-fatal error, let's skip right past the
+	         the libraries obviously built for other machines.  */
+	      __close_nocancel (fd);
+	      __set_errno (ENOENT);
+	      return -1;
+	    }
 	  else if (ehdr->e_ident[EI_DATA] != byteorder)
 	    {
 	      if (BYTE_ORDER == BIG_ENDIAN)

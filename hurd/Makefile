@@ -45,10 +45,14 @@ inline-headers = \
 interface-library := libhurduser
 user-interfaces := \
   hurd/auth \
+  hurd/auth_reply \
+  hurd/auth_request \
   hurd/crash \
   hurd/exec \
+  hurd/exec_experimental \
   hurd/exec_startup \
   hurd/fs \
+  hurd/fs_experimental \
   hurd/fsys \
   hurd/ifsock \
   hurd/interrupt \
@@ -115,6 +119,7 @@ routines = \
   set-host \
   setauth \
   seteuids \
+  sysvshm \
   task2pid \
   vpprintf \
   xattr \
