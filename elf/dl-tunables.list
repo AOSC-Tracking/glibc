@@ -111,7 +111,7 @@ glibc {
       type: INT_32
       minval: 0
       maxval: 2
-      default: 1
+      default: 2
     }
   }
 
