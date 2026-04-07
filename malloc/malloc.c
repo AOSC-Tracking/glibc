@@ -5652,16 +5652,16 @@ do_set_hugetlb (size_t value)
 {
   if (value == 1)
     {
-      enum malloc_thp_mode_t thp_mode = __malloc_thp_mode ();
+      enum thp_mode_t thp_mode = __get_thp_mode ();
       /*
 	 Only enable THP madvise usage if system does support it and
 	 has 'madvise' mode.  Otherwise the madvise() call is wasteful.
        */
-      if (thp_mode == malloc_thp_mode_madvise)
-	mp_.thp_pagesize = __malloc_default_thp_pagesize ();
+      if (thp_mode == thp_mode_madvise)
+	mp_.thp_pagesize = __get_thp_size ();
     }
   else if (value >= 2)
-    __malloc_hugepage_config (value == 2 ? 0 : value, &mp_.hp_pagesize,
+    __get_hugepage_config (value == 2 ? 0 : value, &mp_.hp_pagesize,
 			      &mp_.hp_flags);
   return 0;
 }

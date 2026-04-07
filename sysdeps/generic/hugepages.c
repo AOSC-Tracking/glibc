@@ -16,23 +16,22 @@
    License along with the GNU C Library; see the file COPYING.LIB.  If
    not, see <https://www.gnu.org/licenses/>.  */
 
-#include <malloc-hugepages.h>
+#include <hugepages.h>
 
 unsigned long int
-__malloc_default_thp_pagesize (void)
+__get_thp_size (void)
 {
   return 0;
 }
 
-enum malloc_thp_mode_t
-__malloc_thp_mode (void)
+enum thp_mode_t
+__get_thp_mode (void)
 {
-  return malloc_thp_mode_not_supported;
+  return thp_mode_not_supported;
 }
 
-/* Return the default transparent huge page size.  */
 void
-__malloc_hugepage_config (size_t requested, size_t *pagesize, int *flags)
+__get_hugepage_config (size_t requested, size_t *pagesize, int *flags)
 {
   *pagesize = 0;
   *flags = 0;
